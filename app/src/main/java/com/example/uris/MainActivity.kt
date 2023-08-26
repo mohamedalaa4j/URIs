@@ -70,12 +70,7 @@ class MainActivity : AppCompatActivity() {
     // _________________________________________________________________________//
 
     private fun saveFileURI() {
-
-        // Convert imageView to byteArray
-        val bitmap = iv.drawable.toBitmap()
-        val byteArrayOutputStream = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
-        val imageByteArray = byteArrayOutputStream.toByteArray()
+        val imageByteArray = convertImageViewDrawableToByteArray(iv)
 
         // Save file in app's private storage
         val file = File(filesDir, "my_image.png")
@@ -83,6 +78,13 @@ class MainActivity : AppCompatActivity() {
 
         tv.text = "Saved to " + file.toURI()
         println(file.toURI())
+    }
+
+    private fun convertImageViewDrawableToByteArray(imageView: ImageView): ByteArray {
+        val bitmap = imageView.drawable.toBitmap()
+        val byteArrayOutputStream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
+        return byteArrayOutputStream.toByteArray()
     }
 
     // _________________________________________________________________________//
